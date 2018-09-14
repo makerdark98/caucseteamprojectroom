@@ -1,4 +1,4 @@
 # CAUCSE TeamProject Room
 
-[CAUCSE TeamProject Room](https://caucseteamprojectroom.herokuapp.com)
+[CAUCSE TeamProject Room](https://caucseteamproject.herokuapp.com)
 
