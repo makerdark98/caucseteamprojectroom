@@ -40,9 +40,6 @@ $(document).ready(function() {
             selectable: true,
             header: { right: "today prev next, agendaWeek", left: ""},
             events: data,
-            eventRender: function(event, element){
-                $(element).addTouch();
-            },
             eventAfterRender: function(event, element, view) {
                 var width = $(element).width();
                 var numevent = numEvents(new Date(event.start));
