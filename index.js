@@ -6,6 +6,7 @@ const app = express();
 
 const db = mongoose.connection;
 const mongourl = process.env.MONGOLAB_URI;
+console.log(mongourl);
 mongoose.connect(mongourl);
 
 const eventSchema = mongoose.Schema({
