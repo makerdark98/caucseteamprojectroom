@@ -91,5 +91,5 @@ $(document).ready(function() {
     $("#cancel").click(function (){
         $("#dialog").dialog("close");
     });
-    $("#date").value=(new Date()).toISOSTRING().substr(0,10);
+    $("#date").value=(new Date()).toISOString().substr(0,10);
 });
