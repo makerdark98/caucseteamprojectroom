@@ -83,8 +83,8 @@ $(document).ready(function() {
             phone: phone,
             title: title,
             password: password,
-            start: (new Date(date+"T"+starttime+":00Z")).addHours(9),
-            end:(new Date(date+"T"+endtime+":00Z")).addHours(9)
+            start: (new Date(date+"T"+starttime+":00Z")).addHours(0),
+            end:(new Date(date+"T"+endtime+":00Z")).addHours(0)
         };
         postUrl("/events", params);
     });
