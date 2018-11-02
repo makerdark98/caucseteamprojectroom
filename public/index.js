@@ -18,25 +18,13 @@ function postUrl(url, params){
     document.body.appendChild(form);
     form.submit();
 }
-function numEvents(date)
-{
-    totalEvents = $('#calendar').fullCalendar('clientEvents').length;
-    var count = 0;
-    for (i=0;i<totalEvents;i++){
-        var event = $("#calendar").fullCalendar("clientEvents")[i];
-        var starttime =new Date(event.start).getTime();
-        var endtime = new Date(event.end).getTime();
-        if (starttime<= date.getTime() && endtime > date.getTime()) {
-            count++;
-        }
-    }
-    return count;
-}
 
 $(document).ready(function() {
     $.get("/events").done(function(data) {
         $("#calendar").fullCalendar({
             defaultView: "agendaWeek",
+            allDayslot: false,
+            slotEventOverlap: false,
             minTime: "09:00:00",
             maxTime: "21:00:00",
             nowIndicator: true,
@@ -44,12 +32,6 @@ $(document).ready(function() {
             selectable: true,
             header: { right: "today prev next, agendaWeek", left: ""},
             events: data,
-            eventAfterRender: function(event, element, view) {
-                var width = $(element).width();
-                var numevent = numEvents(new Date(event.start));
-                if(numevent==1) width = (width/2);
-                $(element).css('width', width+'px');
-            },
             eventClick: function(calEvent, jsEvent, view) {
                 var password = prompt("본인확인 비밀번호를 적어주세요(평소에 쓰는 비밀번호 기재 금지)");
                 var params = {
