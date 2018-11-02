@@ -45,39 +45,6 @@ $(document).ready(function() {
                 var numevent = numEvents(new Date(event.start));
                 if(numevent==1) width = (width/2);
                 $(element).css('width', width+'px');
-            },
-            select: function(start, end) {
-                if((new Date(end).getTime()-new Date(start).getTime()) / (1000*60*60) > 3){
-                    alert("3시간 초과는 신청 불가능 합니다.");
-                    return;
-                }
-                var owner = prompt("사용자 이름을 넣어주세요");
-                if(owner === null ) return;
-                var phone = prompt("핸드폰 번호를 넣어주세요(비상연락수단)");
-                if(phone === null ) return;
-                var title = prompt("책임자의 이름을 적어주세요(캘린더 표기)");
-                if(title === null ) return;
-                var password = prompt("본인확인 비밀번호를 적어주세요(평소에 쓰는 비밀번호 기재 금지)");
-                if(password === null) return;
-                if(owner === null || title === null || password == null) return;
-                var params = {
-                    owner: owner,
-                    phone: phone,
-                    title: title,
-                    password: password,
-                    start: start,
-                    end: end
-                }
-                postUrl("/events", params);
-            },
-            eventClick: function(calEvent, jsEvent, view) {
-                var password = prompt("본인확인 비밀번호를 적어주세요(평소에 쓰는 비밀번호 기재 금지)");
-                var params = {
-                    password: password,
-                    start: calEvent.start,
-                    end: calEvent.end
-                }
-                postUrl("/delete", params);
             }
         });
     });
@@ -85,8 +52,30 @@ $(document).ready(function() {
         modal: true,
         autoOpen:false,
         title: "예약 신청",
+        resizable:true
     });
     $("#reservation").click(function () {
         $("#dialog").dialog("open");
+    });
+    $("#ok").click(function() {
+        var owner = $("#owner")[0].value;
+        var phone = $("#phone")[0].value;
+        var title = $("#title")[0].value;
+        var password = $("#password")[0].value;
+        var date = $("#date")[0].value;
+        var starttime = $("#start_time")[0].value;
+        var endtime = $("#end_time")[0].value;
+        var params = {
+            owner: owner,
+            phone: phone,
+            title: title,
+            password: password,
+            start: new Date(date+"T"+starttime),
+            end:new Date(date+"T"+endtime)
+        };
+        postUrl("/events", params);
+    });
+    $("#cancel").click(function (){
+        $("#dialog").dialog("close");
     });
 });
