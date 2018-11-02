@@ -1,3 +1,7 @@
+Date.prototype.addHours = function(h){
+    this.setTime(this.getTime() + (h*60*60*1000));
+    return this;
+}
 function postUrl(url, params){
     var method = "post";
     var form = document.createElement("form");
@@ -45,6 +49,15 @@ $(document).ready(function() {
                 var numevent = numEvents(new Date(event.start));
                 if(numevent==1) width = (width/2);
                 $(element).css('width', width+'px');
+            },
+            eventClick: function(calEvent, jsEvent, view) {
+                var password = prompt("본인확인 비밀번호를 적어주세요(평소에 쓰는 비밀번호 기재 금지)");
+                var params = {
+                    password: password,
+                    start: calEvent.start,
+                    end: calEvent.end
+                }
+                postUrl("/delete", params);
             }
         });
     });
@@ -70,8 +83,8 @@ $(document).ready(function() {
             phone: phone,
             title: title,
             password: password,
-            start: new Date(date+"T"+starttime),
-            end:new Date(date+"T"+endtime)
+            start: (new Date(date+"T"+starttime+":00Z")).addHours(9),
+            end:(new Date(date+"T"+endtime+":00Z")).addHours(9)
         };
         postUrl("/events", params);
     });
