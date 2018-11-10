@@ -93,7 +93,7 @@ td input {
     text-align: center;
 }
 
-.fc-state-active, .fc-state-disabled, .fc-state-down, .fc-state-hover {
+.fc-state-active{
     width: 5rem;
     height: 2rem;
     margin-left: 1rem;
@@ -108,15 +108,19 @@ td input {
     background-color: white;
 }
 
-.fc-state-default {
-    background-color: white;
-}
-
-.fc-state-default:hover {
+.fc-state-active:hover {
     background: #37b24d;
     color: white;
 }
-.fc-state-default:active {
+.fc-state-active:active {
+    background: #37b24d;
+}
+
+.fc-state-disabled:hover {
+    background: #37b24d;
+    color: white;
+}
+.fc-state-disabled:active {
     background: #37b24d;
 }
 
