@@ -24,8 +24,8 @@ function hash(str) {
     if (str.length === 0) return hash;
     for (i = 0; i < str.length; i++) {
       chr   = str.charCodeAt(i);
-      hash  = ((hash << 5) - hash) + chr;
-      hash |= 0; // Convert to 32bit integer
+      hash  = ((hash << 3) - hash) + chr;
+      hash |= 0; 
     }
     return hash;
 }
@@ -33,7 +33,7 @@ function hash(str) {
 function getColor(obj) {
     let colors=['#51cf66', '#fcc419', '#ff922b', '#ff6b6b', '#f06595', '#cc5de8', '#845ef7', '#5c7cfa',
                 '#339af0', '#22b8cf', '#20c997', '#94d82d'];
-    let rand = Math.abs(hash(obj.title.concat(obj.start)) % 11);
+    let rand = hash(obj.title) % 11;
     return colors[rand];
 }
 
