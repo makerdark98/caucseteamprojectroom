@@ -33,7 +33,7 @@ function hash(str) {
 function getColor(obj) {
     let colors=['#51cf66', '#fcc419', '#ff922b', '#ff6b6b', '#f06595', '#cc5de8', '#845ef7', '#5c7cfa',
                 '#339af0', '#22b8cf', '#20c997', '#94d82d'];
-    let rand = hash(obj.title) % 11;
+    let rand = hash(obj.title + Number(obj.start.slice(5,7))) % 11;
     return colors[rand];
 }
 
