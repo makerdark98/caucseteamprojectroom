@@ -19,16 +19,27 @@ function postUrl(url, params){
     form.submit();
 }
 
-function getColor() {
+function hash(str) {
+    var hash = 0, i, chr;
+    if (str.length === 0) return hash;
+    for (i = 0; i < str.length; i++) {
+      chr   = str.charCodeAt(i);
+      hash  = ((hash << 5) - hash) + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+}
+
+function getColor(obj) {
     let colors=['#51cf66', '#fcc419', '#ff922b', '#ff6b6b', '#f06595', '#cc5de8', '#845ef7', '#5c7cfa',
                 '#339af0', '#22b8cf', '#20c997', '#94d82d'];
-    let rand = Math.floor(Math.random()*colors.length); 
+    let rand = Math.abs(hash(obj.title.concat(obj.start)) % 11);
     return colors[rand];
 }
 
 function changeColor(data) {
     for(var i=0; i<data.length; i++) {
-        data[i].color = getColor();
+        data[i].color = getColor(data[i]);
     }
 }
 
