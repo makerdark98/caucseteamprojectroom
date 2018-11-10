@@ -1,3 +1,9 @@
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+body {
+    padding-top: 3rem;
+}
+
 h1{
     text-align: center;
 }
@@ -22,4 +28,109 @@ div.main {
 }
 button#reservation {
     float:right;
+}
+
+.modal-footer .button {
+    width: 5rem;
+    height: 2rem;
+    margin-left: 1rem;
+    border: 1px solid #37b24d;
+    color: #37b24d;
+    font-weight: 500;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.modal-footer .button:hover {
+    background: #37b24d;
+    color: white;
+  }
+.modal-footer .button:active {
+    background: #37b24d;
+}
+
+.modal-content {
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    box-shadow: 0px 0px 2px 0px black;
+}
+
+.fc-title {
+    color: white;
+}
+
+.fc-content .fc-time span {
+    color: white;
+}
+
+.fc-unthemed .fc-today {
+    background:#e9ecef;    
+}
+
+table {
+    font-family: 'Jeju Gothic', serif;
+    text-align: center;
+}
+
+.fc th{
+    background-color: #74c0fc;
+    color: white;
+    height: 3rem;
+    vertical-align: middle;
+}
+
+td input {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.modal-title span{
+    font-size: 10px;
+}
+
+.fc-ltr .fc-axis {
+    text-align: center;
+}
+
+.fc-state-active, .fc-state-disabled, .fc-state-down, .fc-state-hover {
+    width: 5rem;
+    height: 2rem;
+    margin-left: 1rem;
+    border: 1px solid #37b24d;
+    color: #37b24d;
+    font-weight: 500;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: white;
+}
+
+.fc-state-default {
+    background-color: white;
+}
+
+.fc-state-default:hover {
+    background: #37b24d;
+    color: white;
+}
+.fc-state-default:active {
+    background: #37b24d;
+}
+
+.fc-today-button {
+    width: 5rem;
+    height: 2rem;
+    margin-left: 1rem;
+    border: 1px solid #37b24d;
+    color: #37b24d;
+    font-weight: 500;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: white;
 }

@@ -4,18 +4,25 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-const db = mongoose.connection;
+mongoose.Promise = global.Promise;
 const mongourl = process.env.MONGOLAB_URI;
-console.log(mongourl);
-mongoose.connect(mongourl);
-
+mongoose.connect(mongourl, { useNewUrlParser: true });
+const db = mongoose.connection;
+db.once("open", function(){
+  console.log("DB connected");
+});
+db.on("error", function(err){
+    console.log("DB ERROR : ", err);
+  });
+  
 const eventSchema = mongoose.Schema({
     title:String,
     start: Date,
     end:Date,
     owner:String,
     password:String,
-    phone:String
+    phone:String,
+    color:String
 });
 const logSchema = mongoose.Schema({
     date: {type:Date, default:Date.now},
@@ -88,7 +95,8 @@ app.get("/events", (req, res, next) => {
             new_element = {
                 title: element.title,
                 start: element.start,
-                end: element.end
+                end: element.end,
+                color: element.color,
             };
             new_data.push(new_element);
         });
