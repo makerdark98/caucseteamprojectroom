@@ -22,7 +22,6 @@ const eventSchema = mongoose.Schema({
     owner:String,
     password:String,
     phone:String,
-    color:String
 });
 const logSchema = mongoose.Schema({
     date: {type:Date, default:Date.now},
@@ -96,7 +95,6 @@ app.get("/events", (req, res, next) => {
                 title: element.title,
                 start: element.start,
                 end: element.end,
-                color: element.color,
             };
             new_data.push(new_element);
         });

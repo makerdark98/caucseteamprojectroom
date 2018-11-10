@@ -26,9 +26,15 @@ function getColor() {
     return colors[rand];
 }
 
+function changeColor(data) {
+    for(var i=0; i<data.length; i++) {
+        data[i].color = getColor();
+    }
+}
+
 $(document).ready(function() {
     $.get("/events").done(function(data) {
-        console.log(data);
+        changeColor(data);
         $("#calendar").fullCalendar({
             defaultView: "agendaWeek",
             allDayslot: false,
@@ -68,7 +74,6 @@ $(document).ready(function() {
         var date = $("#date")[0].value;
         var starttime = $("#start_time")[0].value;
         var endtime = $("#end_time")[0].value;
-        var color = getColor();
         var params = {
             owner: owner,
             phone: phone,
@@ -76,7 +81,6 @@ $(document).ready(function() {
             password: password,
             start: (new Date(date+"T"+starttime+":00Z")).addHours(0),
             end:(new Date(date+"T"+endtime+":00Z")).addHours(0),
-            color: color
         };
         postUrl("/events", params);
     });
