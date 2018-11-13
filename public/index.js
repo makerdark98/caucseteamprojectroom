@@ -97,6 +97,9 @@ function checkInput(owner, phone, password, title, date, starttime, endtime) {
 }
 
 function checkTime(starttime, endtime) {
+    // starttime > endtime인 경우에 alert
+    // start와 end 모두 table 상에는 오전 9시부터 오후 9시까지만 띄우기 때문에
+    // 그 사이의 시간은 모두 reject.
     var start = Number(starttime.slice(0,2));
     var end = Number(endtime.slice(0,2)); 
     if(end - start <= 0) {
@@ -110,7 +113,7 @@ function checkTime(starttime, endtime) {
     }
 
     if(start > 9 || end > 9) {
-        alert("9시 이후에는 자율 사용입니다. 확인해주세요");
+        alert("9시 이후에는 예약할 수 없습니다. 확인해주세요");
         return $("#start_time").focus().select();
     }
 
