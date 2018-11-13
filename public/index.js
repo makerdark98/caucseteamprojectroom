@@ -63,36 +63,57 @@ function isNull(elm) {
 }
 
 
-function checkInput() {
+function checkInput(owner, phone, password, title, date, starttime, endtime) {
     // Input 값 null인지 체크
-    if(isNull($("#owner")[0].value) === true) {
+    if(isNull(owner) === true) {
         alert("사용자가 안 적혀 있습니다. 확인해주세요");
         return $("#owner").focus().select();
     }
-    if(isNull($("#phone")[0].value) === true) {
+    if(isNull(phone) === true) {
         alert("연락처가 안 적혀 있습니다. 확인해주세요");
         return $("#phone").focus().select();
     } 
-    if(isNull($("#password")[0].value) === true) {
+    if(isNull(password) === true) {
         alert("패스워드가 안 적혀 있습니다. 확인해주세요");
         return $("#password").focus().select();
     } 
-    if(isNull($("#title")[0].value) === true) {
+    if(isNull(title) === true) {
         alert("표기될 이름이 안 적혀 있습니다. 확인해주세요");
         return $("#title").focus().select();
     } 
-    if(isNull($("#date")[0].value) === true) {
+    if(isNull(date) === true) {
         alert("날짜가 안 적혀 있습니다. 확인해주세요");
         return $("#date").focus().select();
     }
-    if(isNull($("#start_time")[0].value) === true) {
+    if(isNull(starttime) === true) {
         alert("예약 시작 시간이 안 적혀 있습니다. 확인해주세요");
         return $("#start_time").focus().select();
     } 
-    if(isNull($("#end_time")[0].value) === true) {
+    if(isNull(endtime) === true) {
         alert("예약 종료 시간이 안 적혀 있습니다. 확인해주세요");
         return $("#end_time").focus().select();
     }
+    return 0;
+}
+
+function checkTime(starttime, endtime) {
+    var start = Number(starttime.slice(0,2));
+    var end = Number(endtime.slice(0,2)); 
+    if(end - start <= 0) {
+        alert("예약할 수 없는 시간입니다. 확인해주세요");
+        return $("#start_time").focus().select();
+    }
+
+    if(start < 9 || end < 9) {
+        alert("9시 이전에는 예약할 수 없습니다. 확인해주세요");
+        return $("#start_time").focus().select();
+    }
+
+    if(start > 9 || end > 9) {
+        alert("9시 이후에는 자율 사용입니다. 확인해주세요");
+        return $("#start_time").focus().select();
+    }
+
     return 0;
 }
 
@@ -132,23 +153,26 @@ $(document).ready(function() {
         $("#dialog").dialog("open");
     });
     $("#ok").click(function() {
-        if (checkInput() === 0) {
-            var owner = $("#owner")[0].value;
-            var phone = $("#phone")[0].value;
-            var title = $("#title")[0].value;
-            var password = $("#password")[0].value;
-            var date = $("#date")[0].value;
-            var starttime = $("#start_time")[0].value;
-            var endtime = $("#end_time")[0].value;
-            var params = {
-                owner: owner,
-                phone: phone,
-                title: title,
-                password: password,
-                start: (new Date(date+"T"+starttime+":00Z")).addHours(0),
-                end:(new Date(date+"T"+endtime+":00Z")).addHours(0),
-            };
-            postUrl("/events", params);
+        var owner = $("#owner")[0].value;
+        var phone = $("#phone")[0].value;
+        var title = $("#title")[0].value;
+        var password = $("#password")[0].value;
+        var date = $("#date")[0].value;
+        var starttime = $("#start_time")[0].value;
+        var endtime = $("#end_time")[0].value;
+
+        if (checkInput(owner, phone, password, title, date, starttime,endtime) === 0) {
+            if (checkTime(starttime, endtime) === 0) {
+                var params = {
+                    owner: owner,
+                    phone: phone,
+                    title: title,
+                    password: password,
+                    start: (new Date(date+"T"+starttime+":00Z")).addHours(0),
+                    end:(new Date(date+"T"+endtime+":00Z")).addHours(0),
+                };
+                postUrl("/events", params);
+            }
         }
     });
     $("#cancel").click(function (){
