@@ -43,7 +43,61 @@ function changeColor(data) {
     }
 }
 
+function getToday() {
+    // 오늘 날짜 갖고 오기
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = year + "-" + month + "-" + day;
+    return today;  
+}
+
+function isNull(elm) {
+    // Null 체크 함수
+    return (elm == null || elm == "" || elm == "undefined" || elm[0] == " ") ? true : false
+}
+
+
+function checkInput() {
+    // Input 값 null인지 체크
+    if(isNull($("#owner")[0].value) === true) {
+        alert("사용자가 안 적혀 있습니다. 확인해주세요");
+        return $("#owner").focus().select();
+    }
+    if(isNull($("#phone")[0].value) === true) {
+        alert("연락처가 안 적혀 있습니다. 확인해주세요");
+        return $("#phone").focus().select();
+    } 
+    if(isNull($("#password")[0].value) === true) {
+        alert("패스워드가 안 적혀 있습니다. 확인해주세요");
+        return $("#password").focus().select();
+    } 
+    if(isNull($("#title")[0].value) === true) {
+        alert("표기될 이름이 안 적혀 있습니다. 확인해주세요");
+        return $("#title").focus().select();
+    } 
+    if(isNull($("#date")[0].value) === true) {
+        alert("날짜가 안 적혀 있습니다. 확인해주세요");
+        return $("#date").focus().select();
+    }
+    if(isNull($("#start_time")[0].value) === true) {
+        alert("예약 시작 시간이 안 적혀 있습니다. 확인해주세요");
+        return $("#start_time").focus().select();
+    } 
+    if(isNull($("#end_time")[0].value) === true) {
+        alert("예약 종료 시간이 안 적혀 있습니다. 확인해주세요");
+        return $("#end_time").focus().select();
+    }
+    return 0;
+}
+
 $(document).ready(function() {
+    $("#date").attr("value", getToday()); // 날짜 폼에 기본적인 오늘 날짜(Date) 넣기
     $.get("/events").done(function(data) {
         changeColor(data);
         $("#calendar").fullCalendar({
@@ -78,22 +132,24 @@ $(document).ready(function() {
         $("#dialog").dialog("open");
     });
     $("#ok").click(function() {
-        var owner = $("#owner")[0].value;
-        var phone = $("#phone")[0].value;
-        var title = $("#title")[0].value;
-        var password = $("#password")[0].value;
-        var date = $("#date")[0].value;
-        var starttime = $("#start_time")[0].value;
-        var endtime = $("#end_time")[0].value;
-        var params = {
-            owner: owner,
-            phone: phone,
-            title: title,
-            password: password,
-            start: (new Date(date+"T"+starttime+":00Z")).addHours(0),
-            end:(new Date(date+"T"+endtime+":00Z")).addHours(0),
-        };
-        postUrl("/events", params);
+        if (checkInput() === 0) {
+            var owner = $("#owner")[0].value;
+            var phone = $("#phone")[0].value;
+            var title = $("#title")[0].value;
+            var password = $("#password")[0].value;
+            var date = $("#date")[0].value;
+            var starttime = $("#start_time")[0].value;
+            var endtime = $("#end_time")[0].value;
+            var params = {
+                owner: owner,
+                phone: phone,
+                title: title,
+                password: password,
+                start: (new Date(date+"T"+starttime+":00Z")).addHours(0),
+                end:(new Date(date+"T"+endtime+":00Z")).addHours(0),
+            };
+            postUrl("/events", params);
+        }
     });
     $("#cancel").click(function (){
         $("#dialog").dialog("close");
