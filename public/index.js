@@ -156,3 +156,8 @@ $(document).ready(function() {
     });
     $("#date").value=(new Date()).toISOString().substr(0,10);
 });
+var is_safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+if(is_safari){
+    alert("Safari는 브라우저상에서 날짜 폼을 지원하지 않아 지원하지 않습니다.");
+    $("#reservation").prop("disabled", true);
+}
