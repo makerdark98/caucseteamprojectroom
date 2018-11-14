@@ -107,16 +107,6 @@ function checkTime(starttime, endtime) {
         return $("#start_time").focus().select();
     }
 
-    if(start < 9 || end < 9) {
-        alert("9시 이전에는 예약할 수 없습니다. 확인해주세요");
-        return $("#start_time").focus().select();
-    }
-
-    if(start > 9 || end > 9) {
-        alert("9시 이후에는 예약할 수 없습니다. 확인해주세요");
-        return $("#start_time").focus().select();
-    }
-
     return 0;
 }
 
