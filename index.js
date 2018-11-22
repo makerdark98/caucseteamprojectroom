@@ -120,6 +120,9 @@ app.post("/events", (req, res, next) => {
         //console.log(cnt);
         if(cnt>=2) res.send("<h1>룰을 확인하시고 다시 시도해주세요</h1><h2>최대 동시 2팀</h2><a href='/'>뒤로가기</a>");
         else (new Events(req.body)).save((err,event) => res.redirect("/index.html"));
+    }).catch( err => {
+      console.log(err);
+      res.send("내부에러 어떻게 에러가 났는지 개발자에게 꼭 재보해주세요");
     });
 });
 app.post("/delete", (req, res) => {
